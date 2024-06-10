@@ -44,7 +44,7 @@ model Attraction {
   date    DateTime
   period  String          @db.VarChar(1)
   price   Decimal
-  comment String
+  comment String?
   tags    AttractionTag[]
   trip    Trip            @relation(fields: [tripId], references: [id])
   tripId  String          @map("trip_id")
@@ -79,7 +79,7 @@ model Accommodation {
   checkOut DateTime @map("check_out") @db.DateTime
   nigths   Int
   price    Decimal  @db.Decimal(15, 2)
-  comment  String   @db.VarChar(255)
+  comment  String?  @db.VarChar(255)
   trip     Trip     @relation(fields: [tripId], references: [id])
   tripId   String   @map("trip_id")
 
