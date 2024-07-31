@@ -15,7 +15,7 @@ export class PrismaUserRepository implements UserRepository {
     }
 
     async list() {
-        const users = await prisma.user.findMany();
+        const users = await prisma.user.findMany({ include: { trips: true } });
 
         return users;
     }
