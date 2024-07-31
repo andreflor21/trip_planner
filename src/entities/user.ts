@@ -6,7 +6,7 @@ export type UserProps = {
     name: string;
     email: string;
     age: number | null;
-    birthDate: Date | null;
+    birthdate: Date | null;
     password: string;
     trips: Trip[] | [];
 };
@@ -19,7 +19,7 @@ export class User {
         email: string,
         password: string,
         age: string | null,
-        birthDate: Date | null
+        birthdate: Date | null
     ): User {
         const salt = randomBytes(128).toString('hex');
         const hash = pbkdf2Sync(
@@ -34,7 +34,7 @@ export class User {
             name,
             email,
             age: age ? Number(age) : null,
-            birthDate: birthDate ? birthDate : null,
+            birthdate: birthdate ? birthdate : null,
             password: hash,
             trips: [],
         });

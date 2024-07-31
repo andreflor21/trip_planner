@@ -9,10 +9,10 @@ export async function createUser(req: FastifyRequest, res: FastifyReply) {
         email: z.string(),
         password: z.string().min(6),
         age: z.number().optional(),
-        birthDate: z.date().optional(),
+        birthdate: z.coerce.date().optional(),
     });
 
-    const { name, email, password, age, birthDate } = registerBodySchema.parse(
+    const { name, email, password, age, birthdate } = registerBodySchema.parse(
         req.body
     );
 
@@ -23,14 +23,14 @@ export async function createUser(req: FastifyRequest, res: FastifyReply) {
             email,
             password,
             age: age ? age : null,
-            birthDate: birthDate ? birthDate : null,
+            birthdate: birthdate ? birthdate : null,
         });
+        return res.status(201).send(user.user);
     } catch (err) {
         if (err instanceof UserAlreadyExistsError) {
-            return res.send(409).send({ message: err.message });
+            return res.status(409).send({ message: err.message });
         }
 
         throw err;
     }
-    return res.status(201).send();
 }

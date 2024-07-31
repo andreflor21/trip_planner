@@ -9,11 +9,11 @@ interface CreateUserUseCaseRequest {
     email: string;
     password: string;
     age: number | null;
-    birthDate: Date | null;
+    birthdate: Date | null;
 }
 
 interface CreateUserUseCaseResponse {
-    user: User;
+    user: Omit<User, 'password'>;
 }
 
 export class CreateUserUseCase {
@@ -24,7 +24,7 @@ export class CreateUserUseCase {
         email,
         password,
         age,
-        birthDate,
+        birthdate,
     }: CreateUserUseCaseRequest): Promise<CreateUserUseCaseResponse> {
         const password_hash = await hash(password, 6);
 
@@ -38,7 +38,7 @@ export class CreateUserUseCase {
             name,
             email,
             age,
-            birthdate: birthDate ? birthDate : null,
+            birthdate: birthdate ? birthdate : null,
             password: password_hash,
         });
 
